@@ -147,3 +147,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 RAZORPAY_KEY_ID = os.getenv("RAZORPAY_KEY_ID")
 RAZORPAY_KEY_SECRET = os.getenv("RAZORPAY_KEY_SECRET")
+
+import os
+
+DJANGO_SUPERUSER_USERNAME = os.environ.get("admin")
+DJANGO_SUPERUSER_EMAIL = os.environ.get("admin@gmail.com")
+DJANGO_SUPERUSER_PASSWORD = os.environ.get("123")
