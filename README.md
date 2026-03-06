@@ -7,6 +7,7 @@ Project Overview:
 The system ensures accurate booking logic by validating availability at both frontend and backend levels.
 
 Core Features:
+
 #Authentication & User Management
 #Registration & Login system
 #OTP verification support
@@ -16,6 +17,7 @@ Core Features:
 #Online Payment & COD options
 
 Tech Stack:
+
 -Backend
 #Django
 #SQLite (Development)
@@ -27,9 +29,13 @@ Tech Stack:
 
 -Third-Party Services
 #Razorpay Payment Gateway
+
 #Gmail SMTP (Email Service)
+
 #Version Control
+
 #Git
+
 #GitHub
 
 -Installation Guide
@@ -49,6 +55,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 4️)Configure Environment Variables
+
 Create .env file:
 SECRET_KEY=your_django_secret_key
 EMAIL_HOST_USER=your_email
