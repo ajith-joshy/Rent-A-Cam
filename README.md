@@ -7,6 +7,7 @@ Project Overview:
 The system ensures accurate booking logic by validating availability at both frontend and backend levels.
 
 Core Features:
+
 #Authentication & User Management
 #Registration & Login system
 #OTP verification support
@@ -16,6 +17,7 @@ Core Features:
 #Online Payment & COD options
 
 Tech Stack:
+
 -Backend
 #Django
 #SQLite (Development)
@@ -33,6 +35,7 @@ Tech Stack:
 #GitHub
 
 -Installation Guide
+
 1️)Clone the Repository
 git clone https://github.com/ajith-joshy/Rent-A-Cam.git
 cd camera-rental-platform
