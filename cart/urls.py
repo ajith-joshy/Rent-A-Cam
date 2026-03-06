@@ -30,8 +30,3 @@ urlpatterns = [
     path("payment_success",views.Payment_success.as_view(),name="payment_success"),
     path("your_orders",views.Your_orders.as_view(),name="your_orders"),
 ]
-
-from django.conf.urls.static import static
-from django.conf import settings
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

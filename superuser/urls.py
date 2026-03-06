@@ -32,8 +32,3 @@ urlpatterns = [
     path('product/<int:i>',views.Product_view.as_view(),name="product"),
     path('orders',views.Orders.as_view(),name="orders"),
 ]
-
-from django.conf.urls.static import static
-from django.conf import settings
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
