@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container w-75 p-5 p-5 border border-2 shadow mt-5 mb-5">
+    <div class="product-box">
+        <div class="container">
+            <h4 class="text-center">You have searched for "<span>{{query}}</span>"</h4>
+            {% if products %}
+    <div class="row g-4 special-list">
+    {% for p in products %}
+                <div class="col-lg-3 col-md-6 special-grid best-seller">
+                    <div class="products-single fix">
+                        <div class="box-img-hover">
+                            <img src="{{p.image.url}}" class="img-fluid" alt="Image">
+                        </div>
+                        <div class="why-text">
+                            <h4>{{p.name}}</h4>
+                            <h5>{{p.price}}/- per day</h5>
+                            <a class="cart" href="{% url 'superuser:detail' p.id %}"><u>Details</u></a>
+                        </div>
+                    </div>
+                </div>
+        {% endfor %}
+                </div>
+        {% else %}
+            <h5 style="text-align:center;">NO RESULTS</h5>
+        {% endif %}
+                </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,250 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!--Collections-->
+<section id="billboard" class="bg-light py-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <h1 class="section-title text-center mt-4" data-aos="fade-up">Rent A`Cam</h1>
+        <div class="col-md-6 text-center" data-aos="fade-up" data-aos-delay="300">
+          <p>Capture brilliance without compromise—access elite, professional-grade imaging gear trusted by creators worldwide,
+            offered through flexible rentals with absolute confidence.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="swiper main-swiper py-4" data-aos="fade-up" data-aos-delay="600">
+          <div class="swiper-wrapper d-flex border-animation-left">
+            {% for c in categories %}
+            <div class="swiper-slide">
+              <div class="banner-item image-zoom-effect">
+                <div class="image-holder">
+                  <a href="{% url 'superuser:product' c.id %}">
+                    <img src="{{ c.image.url }}" alt="{{c.name}}" class="img-fluid">
+                  </a>
+                </div>
+                <div class="banner-content py-4">
+                  <h5 class="element-title text-uppercase">
+                    <a href="{% url 'superuser:product' c.id %}" class="item-anchor">{{c.name}}</a>
+                  </h5>
+                  <p>{{c.description}}</p>
+                  <div class="btn-left">
+                    <a href="{% url 'superuser:product' c.id %}" class="btn-link fs-6 text-uppercase item-anchor text-decoration-none">Discover Now</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="icon-arrow icon-arrow-left"><svg width="50" height="50" viewBox="0 0 24 24">
+            <use xlink:href="#arrow-left"></use>
+          </svg></div>
+        <div class="icon-arrow icon-arrow-right"><svg width="50" height="50" viewBox="0 0 24 24">
+            <use xlink:href="#arrow-right"></use>
+          </svg></div>
+      </div>
+    </div>
+  </section>
+
+<!--features of rent a cam-->
+<section class="features py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 text-center" data-aos="fade-in" data-aos-delay="0">
+          <div class="py-5">
+            <svg width="38" height="38" viewBox="0 0 24 24">
+              <use xlink:href="#calendar"></use>
+            </svg>
+            <h4 class="element-title text-capitalize my-3">Book An Order</h4>
+          </div>
+        </div>
+        <div class="col-md-4 text-center" data-aos="fade-in" data-aos-delay="300">
+          <div class="py-5">
+            <svg width="38" height="38" viewBox="0 0 24 24">
+              <use xlink:href="#shopping-bag"></use>
+            </svg>
+            <h4 class="element-title text-capitalize my-3">Pick up in store</h4>
+          </div>
+        </div>
+        <div class="col-md-4 text-center" data-aos="fade-in" data-aos-delay="600">
+          <div class="py-5">
+            <svg width="38" height="38" viewBox="0 0 24 24">
+              <use xlink:href="#gift"></use>
+            </svg>
+            <h4 class="element-title text-capitalize my-3">Special & Exciting Offers</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!--quotes-->
+<section class="testimonials py-5 bg-light">
+    <div class="swiper testimonial-swiper overflow-hidden my-5">
+      <div class="swiper-wrapper d-flex">
+        <div class="swiper-slide">
+          <div class="testimonial-item text-center">
+            <blockquote>
+              <p>“The best thing about a picture is that it never changes, even when the people in it do.”</p>
+              <div class="review-title text-uppercase">Andy Warhol</div>
+            </blockquote>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="testimonial-item text-center">
+            <blockquote>
+              <p>“If it can be written or thought, it can be filmed"</p>
+              <div class="review-title text-uppercase">Stanley Kubrick</div>
+            </blockquote>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="testimonial-item text-center">
+            <blockquote>
+              <p>“A film is never really good unless the camera is an eye in the head of a poet.”</p>
+              <div class="review-title text-uppercase">Orson Welles</div>
+            </blockquote>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="testimonial-item text-center">
+            <blockquote>
+              <p>“Cheap photography isn't good and good photography isn't cheap"</p>
+              <div class="review-title text-uppercase">Anon</div>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-swiper-pagination d-flex justify-content-center mb-5"></div>
+  </section>
+
+<!--reviews-->
+<section class="blog py-5">
+  <div class="container">
+    <div class="d-flex flex-wrap justify-content-between align-items-center mt-3 mb-3">
+      <h4 class="text-uppercase">Read Reviews</h4>
+    </div>
+
+    <div class="swiper review-swiper">
+      <div class="swiper-wrapper">
+        {% for r in reviews %}
+        <div class="swiper-slide">
+          <article class="post-item p-3">
+            <div class="post-content d-flex flex-wrap gap-2 my-3">
+              <div class="post-meta text-uppercase fs-6 text-secondary">
+                <span class="post-category">{{ r.user.username }} on <strong>
+                        {{r.product.name}}</strong></span>
+                <span class="meta-day"> | Rating: {{ r.rating }}/5</span>
+              </div>
+              <p>{{ r.comment|truncatewords:20 }}</p>
+            </div>
+          </article>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- ONLY arrows -->
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </div>
+</section>
+
+<!--footer-->
+<hr>
+<footer id="footer" class="mt-2">
+    <div class="container">
+      <div class="row d-flex flex-wrap justify-content-between py-5">
+        <div class="col-md-4 col-sm-6">
+          <div class="footer-menu footer-menu-001">
+            <div class="footer-intro mb-4">
+            </div>
+            <div class="social-links">
+              <ul class="list-unstyled d-flex flex-wrap gap-3">
+                <li>
+                  <a href="#" class="text-secondary">
+                    <svg width="24" height="24" viewBox="0 0 24 24">
+                      <use xlink:href="#facebook"></use>
+                    </svg>
+                  </a>
+                </li>
+                <li>
+                  <a href="" class="text-secondary">
+                    <svg width="24" height="24" viewBox="0 0 24 24">
+                      <use xlink:href="#twitter"></use>
+                    </svg>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="text-secondary">
+                    <svg width="24" height="24" viewBox="0 0 24 24">
+                      <use xlink:href="#youtube"></use>
+                    </svg>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="text-secondary">
+                    <svg width="24" height="24" viewBox="0 0 24 24">
+                      <use xlink:href="#pinterest"></use>
+                    </svg>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="text-secondary">
+                    <svg width="24" height="24" viewBox="0 0 24 24">
+                      <use xlink:href="#instagram"></use>
+                    </svg>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6">
+          <div class="footer-menu footer-menu-003">
+            <h5 class="widget-title text-uppercase mb-4">Help & Info</h5>
+            <ul class="menu-list list-unstyled text-uppercase border-animation-left fs-6">
+              <li class="menu-item">
+                <a href="#" class="item-anchor">Track Your Order</a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="item-anchor">Returns + Exchanges</a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="item-anchor">Shipping + Delivery</a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="item-anchor">Contact Us</a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="item-anchor">Find us easy</a>
+              </li>
+              <li class="menu-item">
+                <a href="faqs.html" class="item-anchor">Faqs</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6">
+          <div class="footer-menu footer-menu-004 border-animation-left">
+            <h5 class="widget-title text-uppercase mb-4">Contact Us</h5>
+            <p>Do you have any questions or suggestions? <a href="mailto:contact@yourcompany.com"
+                class="item-anchor">contact@yourcompany.com</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="border-top py-4">
+      <div class="container text-center">
+            <p>© Copyright 2026 Rent A`Cam. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+{% endblock %}

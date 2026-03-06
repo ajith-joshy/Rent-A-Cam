@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="cart-box-main">
+        <div class="container">
+            <form method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-sm-6 col-lg-6 mb-3">
+                    <div class="checkout-address">
+                        <div class="title-left">
+                            <h3><u>Billing address</u></h3>
+                        </div>
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-{{ message.tags }}{% endif %} alert-dismissible fade show text-center" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        {{form}}
+                    </div>
+                </div>
+        <div class="col-sm-6 col-lg-6 mb-3">
+        <div class="shipping-method-box mb-4">
+        <div class="title-left">
+            <h3><u>Shipping Method</u></h3>
+        </div>
+        <div class="custom-control custom-radio">
+            <input id="shippingOption1"
+                   name="shipping-option"
+                   class="custom-control-input"
+                   type="radio"
+                   value="standard"
+                   checked>
+            <label for="shippingOption1">Standard Delivery</label>
+            <span class="float-right font-weight-bold">FREE</span>
+        </div>
+
+        <div class="custom-control custom-radio">
+            <input id="shippingOption2"
+                   name="shipping-option"
+                   class="custom-control-input"
+                   type="radio"
+                   value="express">
+            <label for="shippingOption2">Express Delivery</label>
+            <span class="float-right font-weight-bold">50 Rs.(delivery within 1 day)</span>
+        </div>
+    </div>
+
+                            <div class="order-box">
+                                <div class="title-left">
+                                    <h3><u>Your order</u></h3>
+                                </div>
+
+                                <div class="d-flex">
+                                    <h4>Sub Total</h4>
+                                    <div class="ml-auto font-weight-bold">{{total}}</div>
+                                </div>
+
+                                <div class="d-flex">
+                                    <h4>Shipping Cost</h4>
+                                    <div class="ml-auto font-weight-bold" id="shippingCost">
+                                        {% if shipping_cost %}
+                                            {{ shipping_cost }} Rs.
+                                        {% else %}
+                                            Free
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="d-flex gr-total" id="grandTotal">
+                                    <h5>Grand Total</h5>
+                                    <div class="ml-auto h5"> {{ grand_total }} Rs.</div>
+                                </div>
+                                <hr> </div>
+                            <div class="mb-3 mt-3">
+                                <button type="submit" class="btn btn-hover text-light bg-dark">Place Order</button>
+                            </div>
+                        </div>
+                    </div>
+            </form>
+                </div>
+            </div>
+
+    <!-- End Cart -->
+
+<script>
+    const standardRadio = document.getElementById("shippingOption1");
+    const expressRadio = document.getElementById("shippingOption2");
+
+    const startDateInput = document.getElementById("id_start_date");
+    const endDateInput = document.getElementById("id_end_date");
+
+    const shippingCostEl = document.getElementById("shippingCost");
+    const grandTotalEl = document.getElementById("grandTotal");
+
+    const basePricePerDay = {{ daily_total }};  // initial subtotal from backend
+    const quantity = 1;
+
+    function calculateDays(start, end) {
+        const startDate = new Date(start);
+        const endDate = new Date(end);
+
+        const diffTime = endDate - startDate;
+        const diffDays = diffTime / (1000 * 60 * 60 * 24);
+
+        return diffDays >= 0 ? diffDays + 1 : 0;
+    }
+
+    function updateTotal() {
+
+        if (!startDateInput.value || !endDateInput.value) {
+            return;
+        }
+
+        const rentalDays = calculateDays(startDateInput.value, endDateInput.value);
+
+        let rentalTotal = basePricePerDay * rentalDays;
+
+        let shippingCost = 0;
+
+        if (expressRadio.checked) {
+            shippingCost = 50;
+            shippingCostEl.innerText = "50 Rs.";
+        } else {
+            shippingCost = 0;
+            shippingCostEl.innerText = "Free";
+        }
+
+        const grandTotal = rentalTotal + shippingCost;
+
+        grandTotalEl.innerHTML = `
+            <h5>Grand Total</h5>
+            <div class="ml-auto h5">${grandTotal} Rs.</div>
+        `;
+    }
+
+    standardRadio.addEventListener("change", updateTotal);
+    expressRadio.addEventListener("change", updateTotal);
+    startDateInput.addEventListener("change", updateTotal);
+    endDateInput.addEventListener("change", updateTotal);
+</script>
+
+{% endblock %}

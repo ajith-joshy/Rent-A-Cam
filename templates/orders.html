@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid text-center">
+<h3>All Bookings</h3>
+<table border="1" class="table table-bordered text-center" cellpadding="10">
+    <tr>
+        <th>Order ID</th>
+        <th>User</th>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Total Amount</th>
+        <th>Payment</th>
+        <th>Delivery Status</th>
+    </tr>
+
+    {% for item in orders %}
+    <tr>
+        <td>{{ item.order.order_id }}</td>
+        <td>{{ item.order.user.username }}</td>
+        <td>{{ item.product.name }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.order.start_date }}</td>
+        <td>{{ item.order.end_date }}</td>
+        <td>₹ {{ item.order.amount }}</td>
+        <td>{{ item.order.payment_method }}</td>
+        <td>{{ item.order.delivery_status }}</td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+{% endblock %}

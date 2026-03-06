@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+<h3>Add Category</h3>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for field in cform %}
+            <div class="mb-3">
+                {{ field.label_tag }}
+                {{ field }}
+            </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-success">Save</button>
+</form>
+<hr>
+<h3>Existing Categories</h3>
+<table class="table table-bordered">
+    <tr>
+        <th>Name</th>
+        <th>Actions</th>
+    </tr>
+    {% for i in categories %}
+    <tr>
+        <td>{{i.name}}</td>
+        <td>
+        <a href="{% url 'superuser:edit_category' i.id %}" class="btn btn-warning">Edit</a>
+        <a href="{% url 'superuser:delete_category' i.id %}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this?')">
+        Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </table>
+    </div>
+{% endblock %}

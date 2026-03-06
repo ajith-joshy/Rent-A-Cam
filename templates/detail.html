@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+            <div class="row">
+				<div class="col-lg-6">
+                    <div class="banner-frame"> <img class="img-fluid" src="{{product.image.url}}" alt="" />
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-5">
+                    <h4 class="noo-sh-title-top"><strong>{{product.name}}</strong></h4>
+                    <h6><strong>Description:</strong></h6>
+                    <ul class="product-desc">
+                        {% for line in product.description.splitlines %}
+                        <li>{{line|cut:"-"}}</li>
+                        {% endfor %}
+                    </ul>
+                    <h6>Available:{{product.stock}}</h6>
+                    <h6>Price:{{product.price}}/- per day</h6>
+                    {% if user.is_superuser == True %}
+                        <a class="btn hvr-hover bg-primary text-light" href="{% url 'superuser:add' product.id %}">Add Stock</a>
+                    {% else %}
+                        {% if product.stock > 0 %}
+                            <a class="btn hvr-hover bg-dark" href="{% url 'cart:addtowishlist' product.id %}">Add to Wishlist</a>
+                            <a class="btn hvr-hover bg-dark" href="{% url 'cart:addtocart' product.id %}">Add to Cart</a>
+                        {% else %}
+                            <h3>Out of Stock</h3>
+                        {% endif %}
+                        <a class="btn hvr-hover bg-dark" href="{% url 'search:review' product.id %}">Add Review</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

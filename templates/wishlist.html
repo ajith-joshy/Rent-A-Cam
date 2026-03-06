@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="cart-box-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-main table-responsive">
+                        <table class="table mt-3">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Product Name</th>
+                                    <th>Price</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for i in wishlist %}
+                                <tr>
+                                    <td class="thumbnail-img">
+                                        <a href="#">
+									    <img class="img-fluid" height="200px" width="150px" src="{{i.product.image.url}}" alt="" />
+								        </a>
+                                    </td>
+                                    <td class="name-pr">
+    									{{i.product.name}}
+                                    </td>
+                                    <td class="price-pr">
+                                        <p>{{i.product.price}}</p>
+                                    </td>
+                                    <td class="remove-pr">
+                                        <a class="btn hvr-hover bg-dark" href="{% url 'cart:addtocart' i.product.id %}">Add to Cart</a>
+                                        <a href="{% url 'cart:deletefromwishlist' i.product.id %}"><i class="fas fa-times"></i></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

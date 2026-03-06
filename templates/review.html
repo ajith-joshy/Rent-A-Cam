@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container p-5 w-75 mt-5 border border-3 border-dark shadow text-center">
+    <form method="post">
+        {% csrf_token %}
+        <label class="fw-bold mb-2">Your Rating</label>
+        <div id="star-rating" class="star-rating">
+            <span data-value="1">★</span>
+            <span data-value="2">★</span>
+            <span data-value="3">★</span>
+            <span data-value="4">★</span>
+            <span data-value="5">★</span>
+        </div>
+        <input type="hidden" name="rating" id="ratingInput">
+
+        {% if form.rating.errors %}
+            <div class="text-danger mb-2">
+                {{ form.rating.errors }}
+            </div>
+        {% endif %}
+
+        <div class="mb-3">
+            {{ form.comment.label_tag }}
+            {{ form.comment }}
+            {% if form.comment.errors %}
+                <div class="text-danger">
+                    {{ form.comment.errors }}
+                </div>
+            {% endif %}
+        </div>
+        <input type="submit" class="btn btn-dark mt-3">
+    </form>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const stars = document.querySelectorAll('#star-rating span');
+    const ratingInput = document.getElementById('ratingInput');
+
+    if (!stars.length || !ratingInput) return;
+
+    stars.forEach((star, index) => {
+        star.addEventListener('click', () => {
+            ratingInput.value = index + 1;
+            stars.forEach((s, i) => {
+                s.classList.toggle('active', i <= index);
+            });
+        });
+    });
+});
+</script>
+
+{% endblock %}

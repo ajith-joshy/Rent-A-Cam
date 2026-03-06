@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for i in your_orders %}
+    <div class="container mt-3 mb-3 border border-2 border-light shadow">
+    <h4>Order ID:{{i.order_id}}</h4>
+    <h4>Total amount:{{i.amount}}</h4>
+    <h4>Ordered date & time:{{i.ordered_date}}</h4>
+    <h4>Payment method:{{i.payment_method}}</h4>
+    <h4>Delivery Status:{{i.delivery_status}}</h4>
+        {% for j in i.products.all %}
+            <div class="container mt-2">
+            <img src="{{j.product.image.url}}" width="150">
+            <h6>Quantity ordered:{{j.quantity}}</h6>
+            <h6>Product name:{{j.product.name}}</h6>
+            <h6>Price:{{j.product.price}}/- per day</h6>
+            <h6>Date:{{i.start_date}} - {{i.end_date}}</h6>
+            </div>
+        {% empty %}
+             <p><i>No products found for this order.</i></p>
+        {% endfor %}
+        </div>
+{% endfor %}
+
+{% endblock %}
