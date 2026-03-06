@@ -34,7 +34,7 @@ Tech Stack:
 
 -Installation Guide
 1️)Clone the Repository
-git clone https://github.com/ajith-joshy/Rent-A-Cam---An-E-commercial-Website.git
+git clone https://github.com/ajith-joshy/Rent-A-Cam.git
 cd camera-rental-platform
 
 2)Create Virtual Environment
