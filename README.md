@@ -29,16 +29,13 @@ Tech Stack:
 
 -Third-Party Services
 #Razorpay Payment Gateway
-
 #Gmail SMTP (Email Service)
-
 #Version Control
-
 #Git
-
 #GitHub
 
 -Installation Guide
+
 1️)Clone the Repository
 git clone https://github.com/ajith-joshy/Rent-A-Cam.git
 cd camera-rental-platform
@@ -55,7 +52,6 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 4️)Configure Environment Variables
-
 Create .env file:
 SECRET_KEY=your_django_secret_key
 EMAIL_HOST_USER=your_email
