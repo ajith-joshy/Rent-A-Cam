@@ -27,12 +27,16 @@ class Register(View):
             u.is_active=False
             u.save()
             u.generate_otp()    #calls generate_otp defined in model
-            send_mail(
-                "Django Auth OTP",
-                f"Your OTP is {u.otp}. It is valid for 5 minutes.",
-                settings.EMAIL_HOST_USER,
-                [u.email],
-            )
+            try:
+                send_mail(
+                    "Django Auth OTP",
+                    f"Your OTP is {u.otp}. It is valid for 5 minutes.",
+                    settings.EMAIL_HOST_USER,
+                    [u.email],
+                    fail_silently=False
+                )
+            except Exception as e:
+                print("Email sending failed:",e)
             request.session['otp_user'] = u.id
             return redirect('rent:verify')
         return render(request, 'register.html', {'form': f})
