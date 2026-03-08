@@ -12,13 +12,12 @@
   <meta name="author" content="TemplatesJungle">
   <meta name="keywords" content="ecommerce,fashion,store">
   <meta name="description" content="Bootstrap 5 Fashion Store HTML CSS Template">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'css/vendor.css' %}">
+  <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,9 +25,6 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Marcellus&display=swap"
     rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoYz1H8GkLkzH9E6Q2z9n3E5z7mXKp4YfRvH+8abtTE1Pi6"
-        crossorigin="anonymous"></script>
 </head>
 
 <body class="homepage">
@@ -224,7 +220,7 @@
                     <li class="nav-item"><a class="nav-link" href="{% url 'superuser:add_category' %}">Categories</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'superuser:add_product' %}">Products</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'superuser:orders' %}">Orders</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'rent:logout' %}" onclick="return confirm('Are you sure you want to logout?')">Logout</a>
+                <li class="nav-item"><a class="nav-link" href="{% url 'rent:logout' %}" onclick="return confirm('Are you sure you want to logout?')">Logout</a></li>
                 {% elif user.is_superuser == False %}
                 <li class="nav-item"><a class="nav-link" href="{% url 'rent:home' %}" id="Shop">Shop</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'rent:logout' %}" onclick="return confirm('Are you sure you want to logout?')">Logout</a>
@@ -269,14 +265,15 @@
 
 {% endblock %}
 
-  <script src="{% static 'js/jquery.min.js' %}"></script>
-  <script src="{% static 'js/plugins.js' %}"></script>
-  <script src="{% static 'js/SmoothScroll.js' %}"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+  <script src="{% static 'js/modernizr.js' %}"></script>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/plugins.js' %}"></script>
+<script src="{% static 'js/SmoothScroll.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 
+<script src="{% static 'js/script.min.js' %}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
   document.addEventListener("DOMContentLoaded", function () {
 
@@ -305,8 +302,6 @@
 
   });
 </script>
-
-  <script src="{% static 'js/script.min.js' %}"></script>
 </body>
 
 </html>
