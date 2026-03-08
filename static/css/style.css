@@ -1636,3 +1636,17 @@ a.btn-link.text-light:after {
 .special-grid{
     margin-bottom: 30px;
 }
+
+html, body {
+    overflow-x: hidden;
+}
+
+.swiper {
+    width: 100%;
+    overflow: hidden;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
