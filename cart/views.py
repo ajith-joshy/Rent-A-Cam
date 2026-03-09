@@ -181,6 +181,16 @@ class Checkout(View):
                     item.product.save()
                 Cart.objects.filter(user=u).delete()
             return render(request,'payment.html',{'order':o})
+        else:
+            u = request.user
+            c = Cart.objects.filter(user=u)
+            total = sum(i.sub_total() for i in c)
+            return render(request, 'checkout.html', {
+                'form': f,
+                'total': total,
+                'shipping_cost': 0,
+                'grand_total': total
+            })
 
 #CSRF_EXEMPT -to ignore csrf verification for this view
 from django.views.decorators.csrf import csrf_exempt
