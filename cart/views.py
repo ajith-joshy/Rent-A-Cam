@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.views import View
 from superuser.models import Product
-from .models import Cart, Wishlist
+from .models import Cart, Wishlist, Order, Order_items
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
@@ -18,12 +18,14 @@ class Addtowishlist(View):
         Wishlist.objects.get_or_create(user=u,product=p)
         return redirect('cart:wishlistview')
 
+@method_decorator(login_required,name="dispatch")
 class Wishlist_view(View):
     def get(self, request):
         u = request.user
         w = Wishlist.objects.filter(user=u)
         return render(request, 'wishlist.html', {'wishlist': w})
 
+@method_decorator(login_required,name="dispatch")
 class Deletefromwishlist(View):
     def get(self,request,i):
         u=request.user
@@ -183,7 +185,6 @@ class Checkout(View):
 #CSRF_EXEMPT -to ignore csrf verification for this view
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-from .models import Order,Order_items
 @method_decorator(csrf_exempt,name="dispatch")
 class Payment_success(View):
     def post(self,request):
