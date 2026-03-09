@@ -2,6 +2,8 @@ from .models import Review
 from django import forms
 
 class Reviewform(forms.ModelForm):
+    rating = forms.IntegerField(required=True)
+    comment = forms.CharField(required=True, widget=forms.Textarea)
     class Meta:
         model=Review
         fields=['rating','comment']
