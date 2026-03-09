@@ -47,6 +47,7 @@ class Addtocart(View):
             c.save()
         return redirect('cart:cartview')
 
+@method_decorator(login_required,name="dispatch")
 class Removefromcart(View):
     def get(self,request,i):
         u=request.user
@@ -62,6 +63,7 @@ class Removefromcart(View):
             pass
         return redirect('cart:cartview')
 
+@method_decorator(login_required,name="dispatch")
 class Deletefromcart(View):
     def get(self,request,i):
         u=request.user
@@ -69,6 +71,7 @@ class Deletefromcart(View):
         Cart.objects.filter(user=u,product=p).delete()
         return redirect('cart:cartview')
 
+@method_decorator(login_required,name="dispatch")
 class Cart_view(View):
     def get(self,request):
         u=request.user
@@ -82,6 +85,7 @@ class Cart_view(View):
 import uuid
 import razorpay
 from .forms import Orderform
+@method_decorator(login_required,name="dispatch")
 class Checkout(View):
     def get(self,request):
         f=Orderform()
@@ -222,6 +226,7 @@ class Payment_success(View):
             item.product.save()
         return render(request, 'payment_success.html', {'order': o})
 
+@method_decorator(login_required,name="dispatch")
 class Your_orders(View):
     def get(self,request):
         u=request.user
