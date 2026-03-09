@@ -12,12 +12,18 @@ class Cart(models.Model):
     def sub_total(self):
         return self.product.price*self.quantity
 
+from django.core.validators import RegexValidator
+phone_validator = RegexValidator(
+    regex=r'^\d{10}$',
+    message="Phone number must contain exactly 10 digits"
+)
+
 class Order(models.Model):
     order_id=models.CharField(max_length=20,blank=True)
     user=models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     amount=models.IntegerField()
     address=models.TextField()
-    phone=models.IntegerField()
+    phone = models.CharField(max_length=10, validators=[phone_validator])
     payment_method=models.CharField(max_length=10)
     ordered_date=models.DateTimeField(auto_now_add=True)
     is_ordered=models.BooleanField(default=False)
