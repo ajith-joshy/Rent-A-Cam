@@ -22,7 +22,7 @@ def send_otp_email(email, otp):
         send_mail(
             "Django Auth OTP",
             f"Your OTP is {otp}. It is valid for 5 minutes.",
-            settings.EMAIL_HOST_USER,
+            settings.DEFAULT_FROM_EMAIL,
             [email],
             fail_silently=True
         )
