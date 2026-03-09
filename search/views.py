@@ -33,7 +33,7 @@ class Review_view(View):
     def post(self,request,i):
         product = Product.objects.get(id=i)
         f=Reviewform(request.POST)
-        if f.is_valid:
+        if f.is_valid():
             review=f.save(commit=False)
             review.user=request.user
             review.product=product
