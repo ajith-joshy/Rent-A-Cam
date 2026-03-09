@@ -19,7 +19,7 @@ phone_validator = RegexValidator(
 )
 
 class Order(models.Model):
-    order_id=models.CharField(max_length=20,blank=True)
+    order_id=models.CharField(max_length=50, blank=True)
     user=models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     amount=models.IntegerField()
     address=models.TextField()
