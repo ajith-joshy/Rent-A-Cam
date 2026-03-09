@@ -88,11 +88,6 @@ from .forms import Orderform
 @method_decorator(login_required,name="dispatch")
 class Checkout(View):
     def get(self,request):
-        u = request.user
-        c = Cart.objects.filter(user=u)
-        if not c.exists():
-            messages.error(request, "Your cart is empty.")
-            return redirect('cart:cartview')
         f = Orderform()
         daily_total = sum(i.product.price * i.quantity for i in c)
         context={'form':f,
@@ -103,11 +98,6 @@ class Checkout(View):
                  }
         return render(request,'checkout.html',context)
     def post(self,request):
-        u = request.user
-        c = Cart.objects.filter(user=u)
-        if not c.exists():
-            messages.error(request, "Your cart is empty.")
-            return redirect('cart:cartview')
         f=Orderform(request.POST)
         if f.is_valid():
             o=f.save(commit=False)

@@ -71,17 +71,10 @@
                             <div class="ml-auto h5 font-weight-bold">{{total}}</div>
                         </div>
                         </div>
-
-                    {% if cart %}
-                        <div class="col-12 d-flex shopping-box">
-                        <a href="{% url 'cart:checkout' %}" class="ml-auto btn btn-dark hvr-hover">Checkout</a>
-                    {% else %}
-                        <button class="btn btn-dark" disabled>Checkout</button>
-                    {% endif %}
-                        </div>
-
-                </div>
+                <div class="col-12 d-flex shopping-box"><a href="{% url 'cart:checkout' %}" class="ml-auto btn btn-dark hvr-hover">Checkout</a> </div>
             </div>
+            </div>
+
 
         </div>
     </div>
