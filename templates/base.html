@@ -215,7 +215,7 @@
             <div class="offcanvas-body">
               <ul class="navbar-nav justify-content-end flex-grow-1 gap-1 gap-md-5 pe-3">
 
-                {% if user.is_authenticated %}
+                {% if user.is_authenticated or request.resolver_match.url_name == 'payment_success' %}
                   {% if user.is_superuser == True %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'rent:home' %}">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'superuser:add_category' %}">Categories</a></li>
