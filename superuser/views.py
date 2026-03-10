@@ -90,7 +90,7 @@ class Add_stock(View):
         f=Stockform(request.POST,instance=b)
         if f.is_valid():
             f.save()
-        return redirect('superuser:detail',i=i)
+        return redirect('rent:home')
 
 class Detail_view(View):
     def get(self,request,i):
