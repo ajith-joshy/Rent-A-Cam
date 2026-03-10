@@ -4,7 +4,7 @@ A Django-based camera rental management system that enables users to browse came
 calculate dynamic pricing based on rental duration, and complete secure online payments.
 
 Project Overview:
-The system ensures accurate booking logic by validating availability at both frontend and backend levels.
+The system ensures accurate booking logic by validating availability at both frontend and backend levels while supporting scalable cloud-based storage and database infrastructure.
 
 Core Features:
 
@@ -20,7 +20,8 @@ Tech Stack:
 
 -Backend
 #Django
-#SQLite (Development)
+#SQLite (Development
+#PostgreSQL(Production Database)
 
 -Frontend
 #HTML
@@ -29,8 +30,8 @@ Tech Stack:
 
 -Third-Party Services
 #Razorpay Payment Gateway
-#Gmail SMTP (Email Service)
-#Version Control
+#SendGrid (Transactional Email Service)
+#Cloudinary (Cloud Media Storage)
 #Git
 #GitHub
 
