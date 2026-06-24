@@ -65,18 +65,17 @@ AUTH_USER_MODEL='rent.Customuser'
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 EMAIL_HOST = "smtp-relay.brevo.com"
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+EMAIL_PORT = 465
+
+EMAIL_USE_SSL = True
+EMAIL_USE_TLS = False
 
 EMAIL_HOST_USER = os.getenv("BREVO_SMTP_LOGIN")
 EMAIL_HOST_PASSWORD = os.getenv("BREVO_SMTP_PASSWORD")
 
-print("EMAIL_HOST_USER:", EMAIL_HOST_USER)
-print("Attempting to send OTP")
-
 DEFAULT_FROM_EMAIL = "Rent a cam <ajithmechery11@gmail.com>"
 
-EMAIL_TIMEOUT = 10
+EMAIL_TIMEOUT = 30
 
 ROOT_URLCONF = 'cam.urls'
 
