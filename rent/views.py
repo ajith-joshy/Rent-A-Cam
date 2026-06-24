@@ -13,23 +13,24 @@ class Home(View):
         context={'products':products,'categories':categories,'reviews':reviews}
         return render(request,'home.html',context)
 
-
 import threading
 from django.core.mail import send_mail
 from django.conf import settings
 def send_otp_email(email, otp):
+    print(f"Attempting to send OTP to {email}")
     try:
-        send_mail(
+        result = send_mail(
             "Django Auth OTP",
             f"Your OTP is {otp}. It is valid for 5 minutes.",
             settings.DEFAULT_FROM_EMAIL,
             [email],
             fail_silently=False
         )
-        print("OTP email sent successfully to", email)
+        print("Mail Result:", result)
+        print("OTP EMAIL SENT SUCCESSFULLY")
 
     except Exception as e:
-        print("EMAIL ERROR:", str(e))
+        print("SMTP ERROR:", repr(e))
 
 class Register(View):
     def get(self,request):
@@ -43,10 +44,7 @@ class Register(View):
             u.is_active=False
             u.save()
             u.generate_otp()    #calls generate_otp defined in model
-            threading.Thread(
-                target=send_otp_email,
-                args=(u.email, u.otp)
-            ).start()
+            send_otp_email(u.email, u.otp)
             request.session['otp_user'] = u.id
             return redirect('rent:verify')
         return render(request, 'register.html', {'form': f})
