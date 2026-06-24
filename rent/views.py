@@ -13,26 +13,57 @@ class Home(View):
         context={'products':products,'categories':categories,'reviews':reviews}
         return render(request,'home.html',context)
 
-
-import threading
-from django.core.mail import send_mail
+import requests
 from django.conf import settings
-def send_otp_email(email, otp):
-    try:
-        print(f"Attempting to send OTP to {email}")
 
-        send_mail(
-            "Django Auth OTP",
-            f"Your OTP is {otp}. It is valid for 5 minutes.",
-            settings.DEFAULT_FROM_EMAIL,
-            [email],
-            fail_silently=False
+def send_otp_email(email, otp):
+
+    url = "https://api.brevo.com/v3/smtp/email"
+
+    headers = {
+        "accept": "application/json",
+        "api-key": settings.BREVO_API_KEY,
+        "content-type": "application/json"
+    }
+
+    payload = {
+        "sender": {
+            "name": "Rent A Cam",
+            "email": "ajithmechery11@gmail.com"
+        },
+        "to": [
+            {
+                "email": email
+            }
+        ],
+        "subject": "OTP Verification",
+        "htmlContent": f"""
+        <h3>Rent A Cam OTP Verification</h3>
+        <p>Your OTP is:</p>
+        <h2>{otp}</h2>
+        <p>This OTP is valid for 5 minutes.</p>
+        """
+    }
+
+    try:
+
+        response = requests.post(
+            url,
+            headers=headers,
+            json=payload,
+            timeout=15
         )
 
-        print("EMAIL SENT")
+        print("STATUS:", response.status_code)
+        print("RESPONSE:", response.text)
+
+        return response.status_code == 201
 
     except Exception as e:
-        print("SMTP ERROR:", repr(e))
+
+        print("BREVO API ERROR:", e)
+
+        return False
 
 class Register(View):
     def get(self,request):
@@ -46,7 +77,16 @@ class Register(View):
             u.is_active=False
             u.save()
             u.generate_otp()    #calls generate_otp defined in model
-            send_otp_email(u.email, u.otp)
+            email_sent = send_otp_email(
+                u.email,
+                u.otp
+            )
+            if not email_sent:
+                messages.error(
+                    request,
+                    "Failed to send OTP email."
+                )
+                return redirect("rent:register")
             request.session['otp_user'] = u.id
             return redirect('rent:verify')
         return render(request, 'register.html', {'form': f})

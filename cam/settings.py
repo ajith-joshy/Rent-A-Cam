@@ -62,20 +62,7 @@ MIDDLEWARE = [
 
 AUTH_USER_MODEL='rent.Customuser'
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-
-EMAIL_HOST = "smtp-relay.brevo.com"
-EMAIL_PORT = 465
-
-EMAIL_USE_SSL = True
-EMAIL_USE_TLS = False
-
-EMAIL_HOST_USER = os.getenv("BREVO_SMTP_LOGIN")
-EMAIL_HOST_PASSWORD = os.getenv("BREVO_SMTP_PASSWORD")
-
-DEFAULT_FROM_EMAIL = "Rent a cam <ajithmechery11@gmail.com>"
-
-EMAIL_TIMEOUT = 30
+BREVO_API_KEY = os.getenv("BREVO_API_KEY")
 
 ROOT_URLCONF = 'cam.urls'
 
