@@ -24,7 +24,7 @@ def send_otp_email(email, otp):
             f"Your OTP is {otp}. It is valid for 5 minutes.",
             settings.DEFAULT_FROM_EMAIL,
             [email],
-            fail_silently=True
+            fail_silently=False
         )
     except Exception as e:
         print("Email sending failed:", e)
