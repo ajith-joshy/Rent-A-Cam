@@ -26,8 +26,10 @@ def send_otp_email(email, otp):
             [email],
             fail_silently=False
         )
+        print("OTP email sent successfully to", email)
+
     except Exception as e:
-        print("Email sending failed:", e)
+        print("EMAIL ERROR:", str(e))
 
 class Register(View):
     def get(self,request):
