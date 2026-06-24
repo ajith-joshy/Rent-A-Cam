@@ -18,6 +18,10 @@ from django.conf import settings
 
 def send_otp_email(email, otp):
 
+    if not settings.BREVO_API_KEY:
+        print("BREVO API KEY NOT FOUND")
+        return False
+
     url = "https://api.brevo.com/v3/smtp/email"
 
     headers = {
@@ -54,10 +58,13 @@ def send_otp_email(email, otp):
             timeout=15
         )
 
-        print("STATUS:", response.status_code)
-        print("RESPONSE:", response.text)
+        if response.status_code == 201:
+            return True
 
-        return response.status_code == 201
+        print("BREVO ERROR:", response.status_code)
+        print(response.text)
+
+        return False
 
     except Exception as e:
 
@@ -82,6 +89,7 @@ class Register(View):
                 u.otp
             )
             if not email_sent:
+                u.delete()
                 messages.error(
                     request,
                     "Failed to send OTP email."
