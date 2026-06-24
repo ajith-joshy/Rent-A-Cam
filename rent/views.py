@@ -17,20 +17,22 @@ import threading
 from django.core.mail import send_mail
 from django.conf import settings
 def send_otp_email(email, otp):
-    print(f"Attempting to send OTP to {email}")
     try:
-        result = send_mail(
+        print(f"Attempting to send OTP to {email}")
+
+        send_mail(
             "Django Auth OTP",
             f"Your OTP is {otp}. It is valid for 5 minutes.",
             settings.DEFAULT_FROM_EMAIL,
             [email],
             fail_silently=False
         )
-        print("Mail Result:", result)
-        print("OTP EMAIL SENT SUCCESSFULLY")
+
+        print("EMAIL SENT")
 
     except Exception as e:
         print("SMTP ERROR:", repr(e))
+        raise
 
 class Register(View):
     def get(self,request):
